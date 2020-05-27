@@ -21,6 +21,7 @@ public class MyApplication extends Application {
                     public void foregroundNotificationClick(Context context, Intent intent) {
                     }
                 });
+
         //启动保活服务
         KeepLive.startWork(this, KeepLive.RunMode.ENERGY, foregroundNotification,
                 //你需要保活的服务，如 socket 连接、定时任务等，建议不用匿名内部类 的方式在这里写
