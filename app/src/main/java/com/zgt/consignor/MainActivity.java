@@ -35,6 +35,10 @@ import com.amap.api.location.AMapLocationListener;
 import com.hdgq.locationlib.LocationOpenApi;
 import com.hdgq.locationlib.entity.ShippingNoteInfo;
 import com.hdgq.locationlib.listener.OnResultListener;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.cache.CacheMode;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.zgt.consignor.model.StartLocation;
 
 import org.json.JSONException;
@@ -118,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements AMapLocationListe
                 return true;
             }
         });
+
 //        webView.setWebChromeClient(new WebChromeClient() {
 //            @Override
 //            public void onReceivedIcon(WebView view, Bitmap icon) {
@@ -194,6 +199,30 @@ public class MainActivity extends AppCompatActivity implements AMapLocationListe
 // 在单次定位情况下，定位无论成功与否，都无需调用stopLocation()方法移除请求，定位sdk内部会移除
 //启动定位
         mlocationClient.startLocation();
+    }
+    private void upLoadLocation(String s, String s1) {
+        OkGo.<String>post("http://212.64.72.2:8080/wuche2/appDriver/saveLocationLog")
+                .tag(this)
+                .cacheKey("cachePostKey")
+                .cacheMode(CacheMode.NO_CACHE)
+                .params("lgt", s1)
+                .params("lat", s)
+                .params("driver_id", "2")
+                .params("vehicle_id", "108")
+                .params("shipid", "108")
+                .params("shiptype", "108")
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                        Log.e("AmapError", "上传成功");
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                    }
+                });
     }
 
     @Override
