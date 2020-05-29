@@ -314,6 +314,7 @@ public class MainActivity extends AppCompatActivity implements AMapLocationListe
                 uploadMessage.onReceiveValue(result);
                 uploadMessage = null;
             }
+
         }
     }
 
